@@ -33,4 +33,5 @@ rndSelectIO xs c = getStdRandom $ rndSelect xs c
 
 -- 24
 -- Draw N different random numbers from the set 1..M.
-
+diffSelect :: Int -> Int -> IO [Int]
+diffSelect n m = rndSelectIO [1..m] n
