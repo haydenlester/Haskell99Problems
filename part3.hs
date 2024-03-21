@@ -28,3 +28,8 @@ rndSelect xs c = do
 -- Draw N different random numbers from the set 1..M.
 diffSelect :: Int -> Int -> IO [Int]
 diffSelect n m = rndSelect [1..m] n
+
+-- 25
+-- Generate a random permutation of the elements of a list.
+rndPermu :: [a] -> IO [a]
+rndPermu xs = rndSelect xs $ length xs
