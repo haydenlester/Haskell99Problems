@@ -1,4 +1,6 @@
 import System.Random
+import List
+import Data.Ord (comparing)
 
 -- 21
 -- Insert an element at a given position into a list.
@@ -63,3 +65,8 @@ group [] _ = [[]]
 group (g:gs) xs = [y:ys |
                       (y, rs) <- combination n xs,
                       (ys)    <- group gs rs]
+
+-- 28
+-- Sort a list of lists, by length
+lsort :: [[a]] -> [[a]]
+lsort = sortBy (comparing length)
