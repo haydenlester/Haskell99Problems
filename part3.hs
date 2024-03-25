@@ -40,3 +40,26 @@ combinations :: Int -> [a] -> [[a]]
 combinations 0 _  = [[]]
 combinations _ [] = []
 combinations n (x:xs) = map (x:) (combinations (n-1) xs) ++ combinations n xs
+
+-- from wiki
+-- maps to tuple containing unused
+combination :: Int -> [a] -> [([a],[a])]
+combination 0 xs     = [([],xs)]
+combination n []     = []
+combination n (x:xs) = ts ++ ds
+  where
+    ts = [(x:ys,zs) | (ys,zs) <- combination (n-1) xs]
+    ds = [(ys,x:zs) | (ys,zs) <- combination n xs]
+
+-- original approach used set difference rather than
+-- constructing the unused set from scratch
+-- composed into mapper. this is better.
+
+-- 27
+-- Calculate all disjoint subgroups of size [x1, x2..]
+-- possible with the provided set
+group :: [Int] -> [a] -> [[[a]]]
+group [] _ = [[]]
+group (g:gs) xs = [y:ys |
+                      (y, rs) <- combination n xs,
+                      (ys)    <- group gs rs]
