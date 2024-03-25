@@ -18,5 +18,7 @@ isPrime' n = [] == takeWhile ltEqSqrt valids
 -- 32
 -- Use Euclid's algorithm to determine GCD of two integers.
 gcd' :: Int -> Int -> Int
-gcd a b
-  |
+gcd' a b = case compare a b of
+  EQ -> a
+  LT -> gcd' a (b-a)
+  GT -> gcd' (a-b) b
