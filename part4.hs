@@ -1,3 +1,5 @@
+import Data.Function (on)
+
 -- 31
 -- Determine whether a given integer is prime
 -- Using 6k +/- 1 optimization
@@ -22,3 +24,8 @@ gcd' a b = case compare a b of
   EQ -> a
   LT -> gcd' a (b-a)
   GT -> gcd' (a-b) b
+
+-- 33
+-- Determine whether two positive integers are coprime.
+coprime :: Int -> Int -> Bool
+coprime x y = gcd x y == 1
