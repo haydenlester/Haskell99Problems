@@ -29,3 +29,9 @@ gcd' a b = case compare a b of
 -- Determine whether two positive integers are coprime.
 coprime :: Int -> Int -> Bool
 coprime x y = gcd x y == 1
+
+-- 34
+-- Calculate Euler's totient function
+totient :: Int -> Int
+totient 1 = 1
+totient m = length [x | x <- [1..m-1], coprime x m]
