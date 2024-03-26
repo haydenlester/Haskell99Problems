@@ -1,5 +1,5 @@
 import Data.Function (on)
-import Data.List (intersect)
+import Data.List (group, intersect)
 
 -- Delegate for 31 and 35
 -- Lists all prime factors for n, except for
@@ -39,3 +39,10 @@ composePrimeFactors :: Int -> [Int]
 composePrimeFactors n = case primeFactors n of
   []    -> [n]
   (p:_) -> p : (composePrimeFactors $ n `div` p)
+
+-- 36
+-- Determine the composed prime factors with 
+-- their multiplicities, for n.
+primeFactorsMult :: Int -> [(Int, Int)]
+primeFactorsMult = map toMult . group . composePrimeFactors
+  where toMult xs = (head xs, length xs)
