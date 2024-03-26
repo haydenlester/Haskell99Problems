@@ -31,3 +31,10 @@ coprime x y = [] == intersect (primeFs x) (primeFs y)
 totient :: Int -> Int
 totient 1 = 1
 totient m = length [x | x <- [1..m-1], coprime x m]
+
+-- 35
+-- Determine the composed prime factors of n
+flatPrimes :: Int -> [Int]
+flatPrimes n = case primeFs n of
+  []    -> [n]
+  (p:_) -> p : (flatPrimes $ n `div` p)
