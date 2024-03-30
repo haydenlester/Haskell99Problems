@@ -1,5 +1,5 @@
 import Data.Function (on)
-import Data.List (group, intersect)
+import Data.List (group, intersect, find)
 
 -- Delegate 
 -- 6k +/- 1 optimization for primality tests
@@ -15,6 +15,10 @@ primeFactors n = [x | x <- sixK, n `mod` x == 0]
 -- Determine whether a given integer is prime
 isPrime :: Int -> Bool
 isPrime n = null $ takeWhile (\x -> x^2 <= n) $ primeFactors n
+
+-- delegate 
+primes :: [Int]
+primes = [x | x <- sixK, isPrime x]
 
 -- 32
 -- Use Euclid's algorithm to determine GCD of two integers.
@@ -65,3 +69,14 @@ primesR :: Int -> Int -> [Int]
 primesR x y 
   | x `mod` 2 == 0  = filter isPrime [x+1,x+3..y]
   | otherwise       = filter isPrime [x,x+2..y]
+
+-- 39
+-- Goldbach conjecture: Every positive even number > 2 
+-- is the sum of two prime numbers.
+-- This is a bit sluggish, but neat
+goldbach :: Int -> (Int, Int)
+goldbach n = case find goldbachPred searchSpace of
+  Just g  -> (g, (n-g))
+  Nothing -> (-1, -1)
+  where goldbachPred x  = isPrime $ n - x
+        searchSpace     = takeWhile (< n) primes
