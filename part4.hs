@@ -65,14 +65,13 @@ phi' ((p, m):ns)  = (p - 1) * p ^ (m - 1) * (phi' ns)
 -- 38
 -- Compare the formulaic totient to the other method (no sol)
 
-
 -- 39
 -- Find prime numbers in a range
 -- Todo: Use this to check out primorials and 
 primesR :: Int -> Int -> [Int]
-primesR x y 
-  | x `mod` 2 == 0  = filter isPrime [x+1,x+3..y]
-  | otherwise       = filter isPrime [x,x+2..y]
+primesR l r 
+  | l `mod` 2 == 0  = filter isPrime [l+1,l+3..r]
+  | otherwise       = filter isPrime [l,l+2..r]
 
 -- 40
 -- Goldbach conjecture: Every positive even number > 2 
@@ -84,3 +83,11 @@ goldbach n = case find goldbachPred searchSpace of
   Nothing -> (-1, -1)
   where goldbachPred x  = isPrime $ n - x
         searchSpace     = takeWhile (< n) primes
+
+goldbachList :: Int -> Int -> [(Int, Int)]
+goldbachList l r = map goldbach $ [n | n <- [l..r], even n]
+
+-- 40a) Find how many cases of both over 50
+goldbachList' :: Int -> Int -> Int-> [(Int, Int)]
+goldbachList' l r n = filter pred $ goldbachList l r
+  where pred (x,_) = x > n
