@@ -63,6 +63,10 @@ phi' []           = 1
 phi' ((p, m):ns)  = (p - 1) * p ^ (m - 1) * (phi' ns)
 
 -- 38
+-- Compare the formulaic totient to the other method (no sol)
+
+
+-- 39
 -- Find prime numbers in a range
 -- Todo: Use this to check out primorials and 
 primesR :: Int -> Int -> [Int]
@@ -70,7 +74,7 @@ primesR x y
   | x `mod` 2 == 0  = filter isPrime [x+1,x+3..y]
   | otherwise       = filter isPrime [x,x+2..y]
 
--- 39
+-- 40
 -- Goldbach conjecture: Every positive even number > 2 
 -- is the sum of two prime numbers.
 -- This is a bit sluggish, but neat
