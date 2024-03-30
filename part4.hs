@@ -9,17 +9,12 @@ sixK  = (2:3:[x + i | x <- [6,12..], i <- [-1,1]])
 -- Delegate for 31 and 35
 -- Lists all prime factors for n, except n itself
 primeFactors :: Int -> [Int]
-primeFactors n = filter divisGate $ takeWhile sizeGate sixK
-  where divisGate x = (n `mod` x == 0)
-        sizeGate  x = (x^2 <= n)
+primeFactors n = [x | x <- sixK, n `mod` x == 0]
 
 -- 31
 -- Determine whether a given integer is prime
 isPrime :: Int -> Bool
-isPrime = null . primeFactors
-
--- Delegate sequence of all primes
-primes = [p | p <- sixK, isPrime p]
+isPrime n = null $ takeWhile (\x -> x^2 <= n) $ primeFactors n
 
 -- 32
 -- Use Euclid's algorithm to determine GCD of two integers.
@@ -43,7 +38,7 @@ totient m = length [x | x <- [1..m-1], (coprime x m)]
 -- 35
 -- Determine the composed prime factors of n
 composePrimeFactors :: Int -> [Int]
-composePrimeFactors n = case primeFactors n of
+composePrimeFactors n = case take 1 $ primeFactors n of
   []    -> [n]
   (p:_) -> p : (composePrimeFactors $ n `div` p)
 
@@ -62,3 +57,11 @@ phi n = phi' $ primeFactorsMult n
 phi' :: [(Int, Int)] -> Int
 phi' []           = 1
 phi' ((p, m):ns)  = (p - 1) * p ^ (m - 1) * (phi' ns)
+
+-- 38
+-- Find prime numbers in a range
+-- Todo: Use this to check out primorials and 
+primesR :: Int -> Int -> [Int]
+primesR x y 
+  | x `mod` 2 == 0  = filter isPrime [x+1,x+3..y]
+  | otherwise       = filter isPrime [x,x+2..y]
